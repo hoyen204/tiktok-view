@@ -17,6 +17,8 @@ from requests.exceptions import RequestException
 from rich.panel import Panel
 from rich.columns import Columns
 
+pytesseract.pytesseract.tesseract_cmd = 'E:\\Tesseract-OCR\\tesseract.exe'
+
 Dump, Choose, Video, Sudah = [], {
     "Choose": 0
 }, {
@@ -24,6 +26,7 @@ Dump, Choose, Video, Sudah = [], {
 }, {
     "Sudah": False
 }
+
 
 def read_captcha(filename):
     with Image.open(filename) as img:
@@ -131,13 +134,7 @@ def submit_followers(username_tiktok):
 <input type="hidden" name="crf_auth" value="(.*?)">
 <input type="hidden" name="crf_type" value="(.*?)">''', str(response6))
                 if len(find_all_videos) == 0:
-                    print(
-                        "[bold bright_white]   ╰─>[bold red] Views Telah Limit...              ", end='\r')
-                    time.sleep(0.5)
-                    for sleep in range(1, 0, -1):
-                        time.sleep(1.0)
-                        Console().print(
-                            f"[bold bright_white]   ╰─>[bold white] Tunggu[bold green] {sleep}[bold white] Detik...               ", end='\r')
+                    print("[bold bright_white]   ╰─>[bold red] Views Telah Limit...              ", end='\r')
                     return 0
                 else:
                     Dump.clear()
@@ -164,8 +161,7 @@ def submit_followers(username_tiktok):
                         'crf_auth': crf_auth,
                         'crf_type': crf_type,
                     }
-                    response7 = r.post(
-                        'https://fireliker.com/{}'.format(controller_url), data=data)
+                    response7 = r.post('https://fireliker.com/{}'.format(controller_url), data=data)
                     if 'Sending Views' in str(response7.text):
                         r.headers.pop('origin')
                         r.headers.pop('content-type')
@@ -187,10 +183,6 @@ def submit_followers(username_tiktok):
 [bold white]Views :[bold green] +200 > {tambah}""", style="bold bright_white", width=71, title=">>> Sukses <<<"))
                             print(
                                 "[bold bright_white]   ╰─>[bold red] Views Telah Limit...              ", end='\r')
-                            for sleep in range(1, 0, -1):
-                                time.sleep(1.0)
-                                Console().print(
-                                    f"[bold bright_white]   ╰─>[bold white] Tunggu[bold green] {sleep}[bold white] Detik...               ", end='\r')
                             return 0
                         elif 'Your Session Has Been Expired' in str(response8):
                             print(
@@ -295,7 +287,7 @@ def bypass_captcha(captcha_file: str):
         if bool(response['error']) == False:
             text = (re.search('<br />(.*?)<br />',
                     str(response['text']).replace('\n', '').replace('\r', '')).group(1))
-            # os.remove(captcha_file)
+            os.remove(captcha_file)
             return text
         else:
             return 404
@@ -313,12 +305,6 @@ while 0 < 999999999:
         break
     try:
         os.system('cls' if os.name == 'nt' else 'clear')
-        try:
-            response = requests.get('https://justpaste.it/2ylvz').text
-            jumlah, online = re.search('"viewsText":"(.*?)"', str(response)).group(
-                1), re.search('"onlineText":"(\d+)"', str(response)).group(1)
-        except Exception as e:
-            jumlah, online = ('0', '0')
         print(Panel("""[bold red]●[bold yellow] ●[bold green] ●[bold white]
  ___________.__                 .____    .__ __                 
  \_   _____/|__|______   ____   |    |   |__|  | __ ___________ 
@@ -329,9 +315,9 @@ while 0 < 999999999:
 \t[bold blue]Get Tiktok Views With Fire-Liker[bold white] - Coded By[bold red] Rozhak""", style="bold bright_white", width=71))
         print(Columns([
             Panel(
-                f"[bold white]Pengguna :[bold green] {jumlah}", width=35, style="bold bright_white"),
+                f"[bold white]Pengguna :[bold green] 0", width=35, style="bold bright_white"),
             Panel(
-                f"[bold white]Online :[bold green] {online}", width=35, style="bold bright_white"),
+                f"[bold white]Online :[bold green] 0", width=35, style="bold bright_white"),
         ]))
         print(Panel("[italic white]Silahkan Masukan[italic green] Username[italic white] Akun Tiktok Kamu Dan Pastikan Akun[italic red] Tidak Terkunci[italic white] Lalu Memiliki Satu Video, Misalnya :[italic green] @rozhak_official",
               style="bold bright_white", width=71, subtitle="[bold bright_white]╭─────", subtitle_align="left", title=">>> Your Username <<<"))
@@ -356,7 +342,7 @@ while 0 < 999999999:
                         "[bold bright_white]   ╰─>[bold red] Koneksi Error...                  ", end='\r')
                     time.sleep(0.5)
                     continue
-            break
+            
     except Exception as e:
         print(Panel(f"[italic red]{str(e).title()}!",
               style="bold bright_white", width=71, title=">>> Error <<<"))
