@@ -25,7 +25,6 @@ Dump, Choose, Video, Sudah = [], {
     "Sudah": False
 }
 
-
 def read_captcha(filename):
     with Image.open(filename) as img:
         # Set whitelist and configure Tesseract engine
@@ -95,7 +94,6 @@ def submit_followers(username_tiktok):
             with open(captcha_file, 'wb') as w:
                 w.write(response4.content)
             w.close()
-            time.sleep(0.5)
 
             r.headers.update({
                 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -112,7 +110,6 @@ def submit_followers(username_tiktok):
             if 'https://fireliker.com/welcome.php' in str(response5.url):
                 print(
                     "[bold bright_white]   ╰─>[bold green] Sukses Bypass Captcha...              ", end='\r')
-                time.sleep(0.5)
 
                 r.headers.pop('origin')
                 r.headers.pop('content-type')
@@ -137,8 +134,8 @@ def submit_followers(username_tiktok):
                     print(
                         "[bold bright_white]   ╰─>[bold red] Views Telah Limit...              ", end='\r')
                     time.sleep(0.5)
-                    for sleep in range(5, 0, -1):
-                        time.sleep(0.0)
+                    for sleep in range(1, 0, -1):
+                        time.sleep(1.0)
                         Console().print(
                             f"[bold bright_white]   ╰─>[bold white] Tunggu[bold green] {sleep}[bold white] Detik...               ", end='\r')
                     return 0
@@ -188,11 +185,9 @@ def submit_followers(username_tiktok):
                             print(Panel(f"""[bold white]Username :[bold green] @{username_tiktok}
 [bold white]Link :[bold red] fireliker.com/{controller_url}
 [bold white]Views :[bold green] +200 > {tambah}""", style="bold bright_white", width=71, title=">>> Sukses <<<"))
-                            time.sleep(0.5)
                             print(
                                 "[bold bright_white]   ╰─>[bold red] Views Telah Limit...              ", end='\r')
-                            time.sleep(0.5)
-                            for sleep in range(5, 0, -1):
+                            for sleep in range(1, 0, -1):
                                 time.sleep(1.0)
                                 Console().print(
                                     f"[bold bright_white]   ╰─>[bold white] Tunggu[bold green] {sleep}[bold white] Detik...               ", end='\r')
@@ -200,22 +195,18 @@ def submit_followers(username_tiktok):
                         elif 'Your Session Has Been Expired' in str(response8):
                             print(
                                 "[bold bright_white]   ╰─>[bold red] Cookies Invalid...              ", end='\r')
-                            time.sleep(0.5)
                             return 404
                         else:
                             print(
                                 "[bold bright_white]   ╰─>[bold red] Gagal Mengirimkan Views...              ", end='\r')
-                            time.sleep(0.5)
                             return 2
                     else:
                         print(
                             "[bold bright_white]   ╰─>[bold red] Views Not Sent...              ", end='\r')
-                        time.sleep(0.5)
                         return 1
             else:
                 print(
                     "[bold bright_white]   ╰─>[bold red] Gagal Bypass Captcha...              ", end='\r')
-                time.sleep(0.5)
                 return 3
         else:
             print(Panel("[italic red]Ada Masalah Saat Login, Harap Kirimkan Respose Error Ke Developer!",
@@ -358,12 +349,12 @@ while 0 < 999999999:
                 except AttributeError:
                     print(
                         "[bold bright_white]   ╰─>[bold red] AttributeError...                  ", end='\r')
-                    time.sleep(10.5)
+                    time.sleep(0.5)
                     continue
                 except RequestException:
                     print(
                         "[bold bright_white]   ╰─>[bold red] Koneksi Error...                  ", end='\r')
-                    time.sleep(10.5)
+                    time.sleep(0.5)
                     continue
             break
     except Exception as e:
